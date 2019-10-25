@@ -1,5 +1,8 @@
 package com.sierou.lettcode.easy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
  * <p>
@@ -24,7 +27,8 @@ public class Sum {
     public static void main(String[] args) {
         int[] nums = {2, 14, 11, 3, 9, 9, 5, 7};
         int target = 9;
-        int[] ints = twoSum(nums, target);
+//        int[] ints = twoSum(nums, target);
+        int[] ints = twoSumByHash(nums, target);
         System.out.println(ints[0] + "," + ints[1]);
     }
 
@@ -36,6 +40,19 @@ public class Sum {
                     return new int[]{i, j};
                 }
             }
+        }
+        throw new IllegalArgumentException("not match");
+    }
+
+
+    private static int[] twoSumByHash(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int index = target - nums[i];
+            if (map.containsKey(index)) {
+                return new int[]{map.get(index), i};
+            }
+            map.put(nums[i], i);
         }
         throw new IllegalArgumentException("not match");
     }
